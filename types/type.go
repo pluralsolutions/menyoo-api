@@ -12,6 +12,9 @@ type ProductStore interface {
 	ProductsByRestaurant(restaurantID int) ([]schema.Product, error)
 }
 
-type Cmd interface {
+type ProductCmd interface {
 	ProductsByRestaurant(restaurantID int) ([]schema.Product, error)
+}
+
+type OrderCmd interface {
 }
