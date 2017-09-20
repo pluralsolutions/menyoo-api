@@ -13,10 +13,6 @@ func NewCmdProduct(store types.Store) *CmdProduct {
 	return &CmdProduct{store}
 }
 
-func (cmd CmdProduct) AddProduct(product *schema.Product) (string, error) {
-	return "Okay, " + product.Title + " have to pay ", nil
-}
-
 func (cmd CmdProduct) ProductsByRestaurant(restaurantID int) ([]schema.Product, error) {
 	result, err := cmd.Store.ProductsByRestaurant(restaurantID)
 	if err != nil {

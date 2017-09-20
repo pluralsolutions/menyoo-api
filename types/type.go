@@ -13,6 +13,5 @@ type ProductStore interface {
 }
 
 type Cmd interface {
-	AddProduct(m *schema.Product) (string, error)
 	ProductsByRestaurant(restaurantID int) ([]schema.Product, error)
 }

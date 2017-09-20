@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
-	// gschema "github.com/gorilla/schema"
 	// "github.com/lucasgomide/zenon/schema"
 	"net/http"
 
@@ -20,9 +19,7 @@ func NewProductsHandler(cmd types.Cmd) *ProductHandler {
 }
 
 func (d ProductHandler) Handler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(200)
 	query := r.URL.Query()
-	w.Header().Add("Content-type", "application/json")
 	restaurantID, err := strconv.Atoi(query.Get("restaurant_id"))
 
 	if err != nil {
@@ -37,6 +34,8 @@ func (d ProductHandler) Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.WriteHeader(200)
+	w.Header().Add("Content-type", "application/json")
 	json.NewEncoder(w).Encode(result)
 }
 
