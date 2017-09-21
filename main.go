@@ -25,6 +25,12 @@ func main() {
 		handler.NewProductsHandler(cmd.NewCmdProduct(store)).Handler,
 	)
 
+	router.HandlerFunc(
+		"POST",
+		"/orders",
+		handler.NewOrdersHandler(cmd.NewCmdOrder(store)).Handler,
+	)
+
 	log.Println("Starting server..")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

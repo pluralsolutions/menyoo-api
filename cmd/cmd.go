@@ -7,3 +7,7 @@ import (
 func NewCmdProduct(store types.Store) *CmdProduct {
 	return &CmdProduct{store}
 }
+
+func NewCmdOrder(store types.Store) *CmdOrder {
+	return &CmdOrder{store}
+}
