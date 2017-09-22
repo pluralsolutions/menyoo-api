@@ -1,13 +1,7 @@
 package schema
 
-import (
-	"github.com/jinzhu/gorm"
-)
-
 type Product struct {
-	gorm.Model
-
-	ID               int
+	ID               int               `json:"id"`
 	RestaurantID     int               `json:"restaurant_id"`
 	Title            string            `json:"title"`
 	Description      string            `json:"description"`
