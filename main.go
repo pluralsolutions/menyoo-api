@@ -21,26 +21,7 @@ func main() {
 
 	router.HandleFunc("/restaurants/{restaurant_id}/products", handler.NewProductsHandler(cmd.NewCmdProduct(store)).Handler)
 	router.HandleFunc("/restaurants/{restaurant_id}/products/{product_id}", handler.NewProductsHandler(cmd.NewCmdProduct(store)).Show)
-
-	// func(w http.ResponseWriter, r *http.Request) {
-	// 	vars := mux.Vars(r)
-	// 	title := vars["title"]
-	// 	page := vars["page"]
-
-	// 	fmt.Fprintf(w, "You've requested the book: %s on page %s\n", title, page)
-	// )
-
-	// router.HandlerFunc(
-	// 	"GET",
-	// 	"/products",
-	// 	handler.NewProductsHandler(cmd.NewCmdProduct(store)).Handler,
-	// )
-
-	// router.HandlerFunc(
-	// 	"POST",
-	// 	"/orders",
-	// 	handler.NewOrdersHandler(cmd.NewCmdOrder(store)).Handler,
-	// )
+	router.HandleFunc("/orders", handler.NewOrdersHandler(cmd.NewCmdOrder(store)).Create)
 
 	log.Println("Starting server..")
 	log.Fatal(http.ListenAndServe(":8080", router))
