@@ -17,7 +17,7 @@ func (cmd CmdProduct) ProductsByRestaurant(restaurantID int) ([]schema.Product, 
 	return result, nil
 }
 
-func (cmd CmdProduct) ProductByRestaurantAndID(restaurantID int, productID int) (result []schema.Product, err error) {
+func (cmd CmdProduct) ProductByRestaurantAndID(restaurantID int, productID int) (result schema.Product, err error) {
 	result, err = cmd.Store.ProductByRestaurantAndID(restaurantID, productID)
 
 	if err != nil {

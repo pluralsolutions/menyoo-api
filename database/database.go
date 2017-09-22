@@ -1,36 +1,30 @@
 package database
 
 import (
-	"database/sql"
-	"log"
-
-	"github.com/jmoiron/sqlx"
+	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
 	"github.com/lucasgomide/menyoo-api/store"
 	"github.com/lucasgomide/menyoo-api/types"
 )
 
-func Connect(url string) *sql.DB {
+func Connect(url string) *gorm.DB {
 	if url == "" {
 		url = "postgres://localhost:5432/menyoo?sslmode=disable"
 	}
-	db, err := sql.Open("postgres", url)
+	db, err := gorm.Open("postgres", url)
+
 	if err != nil {
-		log.Fatalf("Cannot open database connection with %#v, got error: %s", url, err)
+		panic("failed to connect database")
 	}
 
-	if err = db.Ping(); err != nil {
-		log.Fatal("Database ping has been failed, erro: %s", err)
-	}
-
+	db.LogMode(true)
 	return db
 }
 
-func NewStore(db *sql.DB) types.Store {
-	newDb := sqlx.NewDb(db, "postgres")
+func NewStore(db *gorm.DB) types.Store {
 	return struct {
 		*store.ProductStore
 	}{
-		store.NewProductStore(newDb),
+		store.NewProductStore(db),
 	}
 }

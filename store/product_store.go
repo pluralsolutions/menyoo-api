@@ -1,58 +1,51 @@
 package store
 
 import (
-	"github.com/jmoiron/sqlx"
+	"github.com/jinzhu/gorm"
 	"github.com/lucasgomide/menyoo-api/schema"
 )
 
 type ProductStore struct {
-	*sqlx.DB
+	*gorm.DB
 }
 
-func NewProductStore(db *sqlx.DB) *ProductStore {
+func NewProductStore(db *gorm.DB) *ProductStore {
 	return &ProductStore{db}
 }
 
 func (d *ProductStore) ProductsByRestaurant(restaurantID int) (result []schema.Product, err error) {
-	err = d.Select(
-		&result,
-		`
-			SELECT
-				id, restaurant_id, title, description,
-				image, price_cents
-			FROM products
-			WHERE restaurant_id = $1
-		`,
-		restaurantID,
-	)
+	// err = d.Select(
+	// 	&result,
+	// 	`
+	// 		SELECT
+	// 			id, restaurant_id, title, description,
+	// 			image, price_cents
+	// 		FROM products
+	// 		WHERE restaurant_id = $1
+	// 	`,
+	// 	restaurantID,
+	// )
 
-	if err != nil {
-		return nil, err
-	}
+	// if err != nil {
+	// 	return nil, err
+	// }
 	return result, nil
 }
 
-func (d *ProductStore) ProductByRestaurantAndID(restaurantID int, productID int) (result []schema.Product, err error) {
-	err = d.Select(
-		&result,
-		`
-			SELECT
-				p.id, p.restaurant_id, p.title, p.description,
-				p.image, p.price_cents,
-				ig.title as "ingredient_groups.title",
-				ig.product_id as "ingredient_groups.product_id",
-				ig.basic as "ingredient_groups.basic"
-			FROM products p
-			JOIN ingredient_groups ig on ig.product_id = p.id
-			WHERE p.restaurant_id = $1 and p.id = $2
-		`,
-		restaurantID,
-		productID,
-	)
+func (d *ProductStore) ProductByRestaurantAndID(restaurantID int, productID int) (product schema.Product, err error) {
+	d.Find(
+		&product,
+		&schema.Product{ID: productID, RestaurantID: restaurantID},
+	).Related(&product.IngredientGroups)
 
-	if err != nil {
-		return result, err
+	for i, ig := range product.IngredientGroups {
+		d.Where("ingredient_group_id = ?", &ig.ID).Find(&ig.Ingredients)
+		product.IngredientGroups[i].Ingredients = ig.Ingredients
 	}
 
-	return result, nil
+	if err != nil {
+		return product, err
+	}
+
+	return product, nil
 }

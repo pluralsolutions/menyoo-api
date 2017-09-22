@@ -1,9 +1,12 @@
 package schema
 
+import "github.com/jinzhu/gorm"
+
 type IngredientGroup struct {
-	ID        int    `db:"id"`
-	Title     string `db:"title"`
-	Basic     bool   `db:"basic"`
-	ProductID int    `db:"product_id"`
-	// Ingredients []Ingredient
+	gorm.Model
+
+	Title       string       `json:"title"`
+	Basic       bool         `json:"basic"`
+	ProductID   int          `json:"product_id"`
+	Ingredients []Ingredient `json:"ingredients"`
 }
