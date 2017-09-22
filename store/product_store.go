@@ -13,23 +13,12 @@ func NewProductStore(db *gorm.DB) *ProductStore {
 	return &ProductStore{db}
 }
 
-func (d *ProductStore) ProductsByRestaurant(restaurantID int) (result []schema.Product, err error) {
-	// err = d.Select(
-	// 	&result,
-	// 	`
-	// 		SELECT
-	// 			id, restaurant_id, title, description,
-	// 			image, price_cents
-	// 		FROM products
-	// 		WHERE restaurant_id = $1
-	// 	`,
-	// 	restaurantID,
-	// )
-
-	// if err != nil {
-	// 	return nil, err
-	// }
-	return result, nil
+func (d *ProductStore) ProductsByRestaurant(restaurantID int) (products []schema.Product, err error) {
+	d.Find(
+		&products,
+		&schema.Product{RestaurantID: restaurantID},
+	)
+	return products, nil
 }
 
 func (d *ProductStore) ProductByRestaurantAndID(restaurantID int, productID int) (product schema.Product, err error) {
