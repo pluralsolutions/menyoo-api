@@ -3,7 +3,6 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 
 	"github.com/lucasgomide/menyoo-api/schema"
@@ -14,13 +13,17 @@ type OrderHandler struct {
 	types.OrderCmd
 }
 
-func (d OrderHandler) Create(w http.ResponseWriter, r *http.Request) {
-	var m schema.Order
-	b, _ := ioutil.ReadAll(r.Body)
-	err := json.Unmarshal(b, &m)
+func (cmd OrderHandler) Create(w http.ResponseWriter, r *http.Request) {
+	var order schema.Order
+
+	err := json.NewDecoder(r.Body).Decode(&order)
 	if err != nil {
-		fmt.Print("Error", err)
+		fmt.Print("Error ", err)
 	}
 
-	fmt.Print(m)
+	result, err := cmd.CreateOrder(order)
+
+	w.WriteHeader(200)
+	w.Header().Add("Content-type", "application/json")
+	json.NewEncoder(w).Encode(result)
 }

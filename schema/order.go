@@ -1,6 +1,7 @@
 package schema
 
 type Order struct {
-	UserID int `json:"user_id"`
-	Status string
+	UserID        string         `json:"user_id"`
+	Status        string         `json:"status"`
+	ProductsOrder []ProductOrder `json:"products_order"`
 }

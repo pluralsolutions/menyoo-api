@@ -19,5 +19,5 @@ type ProductCmd interface {
 }
 
 type OrderCmd interface {
-	AddOrder(userID int, productsOrder schema.ProductOrder) (schema.Order, error)
+	CreateOrder(order schema.Order) (schema.Order, error)
 }

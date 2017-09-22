@@ -1,6 +1,6 @@
 package schema
 
-type IngredientProductOrders struct {
-	ProducOrdertID int `db:"product_order_id"`
-	IngredientID   int `db:"ingredient_id"`
+type IngredientProductOrder struct {
+	ProducOrdertID int `json:"product_order_id"`
+	IngredientID   int `json:"ingredient_id"`
 }
