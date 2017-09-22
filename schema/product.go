@@ -1,12 +1,14 @@
 package schema
 
+import "time"
+
 type Product struct {
 	ID               int
-	RestaurantID     int    `db:"restaurant_id"`
-	Title            string `db:"title"`
-	Description      string `db:"description"`
-	Image            string `db:"image"`
-	PriceCents       string `db:"price_cents"`
-	IngredientGroups []IngredientGroup
-	InsertedAt       string `db:"inserted_at"`
+	RestaurantID     int               `json:"restaurant_id" db:"restaurant_id"`
+	Title            string            `json:"title" db:"title"`
+	Description      string            `json:"description" db:"description"`
+	Image            string            `json:"image" db:"image"`
+	PriceCents       string            `json:"price_cents" db:"price_cents"`
+	IngredientGroups []IngredientGroup `json:"ingredient_groups" db:"ingredient_groups"`
+	InsertedAt       *time.Time        `json:"inserted_at" db:"inserted_at"`
 }
