@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"errors"
+
 	"github.com/lucasgomide/menyoo-api/schema"
 	"github.com/lucasgomide/menyoo-api/types"
 )
@@ -10,7 +12,12 @@ type CmdOrder struct {
 }
 
 func (cmd CmdOrder) CreateOrder(order schema.Order) (result schema.Order, err error) {
-	for _, pd := range order.ProductsOrder {
+	if order.Products == nil {
+		err = errors.New("Params products is required")
+		return result, err
+	}
+
+	for _, pd := range order.Products {
 		if pd.Quantity <= 0 {
 			continue
 		}
@@ -32,8 +39,14 @@ func (cmd CmdOrder) CreateOrder(order schema.Order) (result schema.Order, err er
 
 		pd.TotalPriceCents = (pd.Quantity * product.PriceCents) + additionalPrice
 
-		result.ProductsOrder = append(result.ProductsOrder, pd)
+		result.Products = append(result.Products, pd)
 	}
+
+	if result.Products == nil {
+		err = errors.New("No products added")
+		return result, err
+	}
+
 	result.UserID = order.UserID
 	result.Status = "requested"
 	result.RestaurantID = order.RestaurantID
