@@ -9,16 +9,75 @@
 
 GET - /restaurants/1/products
 
+### Response Body
+
+```json
+{
+   "id":1,
+   "restaurant_id":1,
+   "title":"Pizza",
+   "description":"Pizza boa",
+   "image":"http://image.com",
+   "price_cents":2000,
+   "ingredient_groups":[
+      {
+         "id":1,
+         "title":"Queijo",
+         "basic":false,
+         "product_id":1,
+         "ingredients":[
+            {
+               "id":2,
+               "name":"Muçarela",
+               "price_cents":50
+            },
+            {
+               "id":1,
+               "name":"Gorgonzola",
+               "price_cents":140
+            }
+         ]
+      }
+   ]
+}
+```
 
 ## Product
 
 GET - /restaurants/1/products/1
 
+### Response Body
+
+```json
+[
+   {
+      "id":2,
+      "restaurant_id":1,
+      "title":"Pizza Presunto",
+      "description":"Pizza de preseunto",
+      "image":"http://image.com",
+      "price_cents":3000,
+      "ingredient_groups":null
+   },
+   {
+      "id":1,
+      "restaurant_id":1,
+      "title":"Pizza",
+      "description":"Pizza boa",
+      "image":"http://image.com",
+      "price_cents":2000,
+      "ingredient_groups":null
+   }
+]
+```
+
 ## Create order
 
 POST - /orders
-#### Payload:
-```
+
+### Payload:
+
+```json
 {
    "user_id":"123das",
    "restaurant_id":1,
@@ -43,23 +102,24 @@ POST - /orders
 }
 ```
 
-#### Response Body:
-```
+### Response Body
+
+```json
 {
-   "ID":5,
+   "id":5,
    "user_id":"123das",
    "restaurant_id":1,
    "status":"requested",
    "products":[
       {
-         "ID":9,
+         "id":9,
          "product_id":1,
          "order_id":5,
          "quantity":2,
          "total_price_cents":4140,
          "ingredients":[
             {
-               "ID":1,
+               "id":1,
                "IngredientGroup":{
                   "id":0,
                   "title":"",
@@ -73,7 +133,7 @@ POST - /orders
          ]
       },
       {
-         "ID":10,
+         "id":10,
          "product_id":2,
          "order_id":5,
          "quantity":1,
