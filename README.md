@@ -137,28 +137,15 @@ POST - /orders
 }
 ```
 
-## Add item into order
+## Update product's order quantity
 
-PUT - /orders
+PUT - /restaurant/{restaurant_id}/orders/{order_id}/products/{product_order_id}/quantity
 
 #### Payload:
 
 ```
 {
-  "user_id":"123das",
-  "restaurant_id":1,
-  "products_order_id": 1
-}
-```
-
-## Remove item from order
-DELETE - /orders
-
-#### Payload:
-```
-{
-  "user_id":"123das",
-  "restaurant_id":1,
-  "products_order_id": 1
+  "user_id": "123das",
+  "quantity": 12
 }
 ```

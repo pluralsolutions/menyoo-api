@@ -2,6 +2,7 @@ package schema
 
 type ProductOrder struct {
 	ID              int          `json:"id"`
+	Product         Product      `json:"-"`
 	ProductID       int          `json:"product_id"`
 	OrderID         int          `json:"order_id"`
 	Quantity        int          `json:"quantity"`

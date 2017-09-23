@@ -25,8 +25,10 @@ func NewStore(db *gorm.DB) types.Store {
 	return struct {
 		*store.ProductStore
 		*store.OrderStore
+		*store.ProductOrderStore
 	}{
 		store.NewProductStore(db),
 		store.NewOrderStore(db),
+		store.NewProductOrderStore(db),
 	}
 }

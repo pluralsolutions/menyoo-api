@@ -19,6 +19,10 @@ func NewOrdersHandler(cmd types.OrderCmd) *OrderHandler {
 	return &OrderHandler{cmd}
 }
 
+func NewProductOrdersHandler(cmd types.ProductOrderCmd) *ProductOrderHandler {
+	return &ProductOrderHandler{cmd}
+}
+
 func badRequest(w http.ResponseWriter, err error) {
 	body := errorBadRequest{err.Error()}
 
