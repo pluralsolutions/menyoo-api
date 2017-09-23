@@ -13,8 +13,8 @@ func NewOrderStore(db *gorm.DB) *OrderStore {
 	return &OrderStore{db}
 }
 
-func (d *OrderStore) CreateOrder(order schema.Order) error {
-	if err := d.Create(&order).Error; err != nil {
+func (d *OrderStore) CreateOrder(order *schema.Order) error {
+	if err := d.Create(order).Error; err != nil {
 		return err
 	}
 

@@ -15,7 +15,7 @@ type ProductStore interface {
 }
 
 type OrderStore interface {
-	CreateOrder(order schema.Order) error
+	CreateOrder(order *schema.Order) error
 }
 
 type ProductCmd interface {

@@ -38,7 +38,7 @@ func (cmd CmdOrder) CreateOrder(order schema.Order) (result schema.Order, err er
 	result.Status = "requested"
 	result.RestaurantID = order.RestaurantID
 
-	if err := cmd.Store.CreateOrder(result); err != nil {
+	if err := cmd.Store.CreateOrder(&result); err != nil {
 		return result, err
 	}
 	return result, err
