@@ -7,3 +7,13 @@ type IngredientGroup struct {
 	ProductID   int          `json:"product_id"`
 	Ingredients []Ingredient `json:"ingredients"`
 }
+
+// ListIngredientsID bblbla
+func (ig IngredientGroup) ListIngredientsID() []int {
+	ingredientsID := make([]int, len(ig.Ingredients))
+
+	for _, i := range ig.Ingredients {
+		ingredientsID = append(ingredientsID, i.ID)
+	}
+	return ingredientsID
+}

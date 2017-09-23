@@ -6,11 +6,16 @@ import (
 
 type Store interface {
 	ProductStore
+	OrderStore
 }
 
 type ProductStore interface {
 	ProductsByRestaurant(restaurantID int) ([]schema.Product, error)
 	ProductByRestaurantAndID(restaurantID int, productID int) (schema.Product, error)
+}
+
+type OrderStore interface {
+	CreateOrder(order schema.Order) error
 }
 
 type ProductCmd interface {

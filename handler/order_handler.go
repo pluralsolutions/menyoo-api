@@ -23,6 +23,11 @@ func (cmd OrderHandler) Create(w http.ResponseWriter, r *http.Request) {
 
 	result, err := cmd.CreateOrder(order)
 
+	if err != nil {
+		badRequest(w, err)
+		return
+	}
+
 	w.WriteHeader(200)
 	w.Header().Add("Content-type", "application/json")
 	json.NewEncoder(w).Encode(result)

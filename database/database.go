@@ -24,7 +24,9 @@ func Connect(url string) *gorm.DB {
 func NewStore(db *gorm.DB) types.Store {
 	return struct {
 		*store.ProductStore
+		*store.OrderStore
 	}{
 		store.NewProductStore(db),
+		store.NewOrderStore(db),
 	}
 }
