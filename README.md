@@ -5,7 +5,7 @@
 
 # API DOC
 
-## Products by restaurant
+## All Products
 
 GET - /restaurants/1/products
 
@@ -42,7 +42,7 @@ GET - /restaurants/1/products
 }
 ```
 
-## Product
+## Show Product
 
 GET - /restaurants/1/products/1
 
@@ -120,13 +120,6 @@ POST - /orders
          "ingredients":[
             {
                "id":1,
-               "IngredientGroup":{
-                  "id":0,
-                  "title":"",
-                  "basic":false,
-                  "product_id":0,
-                  "ingredients":null
-               },
                "name":"Gorgonzola",
                "price_cents":140
             }
