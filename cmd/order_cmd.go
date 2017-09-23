@@ -21,6 +21,7 @@ func (cmd CmdOrder) CreateOrder(order schema.Order) (result schema.Order, err er
 		if pd.Quantity <= 0 {
 			continue
 		}
+
 		product, err := cmd.Store.ProductByRestaurantAndID(
 			order.RestaurantID,
 			pd.ProductID,

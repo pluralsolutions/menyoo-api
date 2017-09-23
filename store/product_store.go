@@ -14,18 +14,27 @@ func NewProductStore(db *gorm.DB) *ProductStore {
 }
 
 func (d *ProductStore) ProductsByRestaurant(restaurantID int) (products []schema.Product, err error) {
-	d.Find(
+	err = d.Find(
 		&products,
 		&schema.Product{RestaurantID: restaurantID},
-	)
+	).Error
+
+	if err != nil {
+		return nil, err
+	}
+
 	return products, nil
 }
 
 func (d *ProductStore) ProductByRestaurantAndID(restaurantID int, productID int) (product schema.Product, err error) {
-	d.Find(
+	err = d.Find(
 		&product,
 		&schema.Product{ID: productID, RestaurantID: restaurantID},
-	).Related(&product.IngredientGroups)
+	).Related(&product.IngredientGroups).Error
+
+	if err != nil {
+		return product, err
+	}
 
 	for i, ig := range product.IngredientGroups {
 		d.Where("ingredient_group_id = ?", &ig.ID).Find(&ig.Ingredients)

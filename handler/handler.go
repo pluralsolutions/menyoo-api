@@ -1,11 +1,15 @@
 package handler
 
 import (
-	"fmt"
+	"encoding/json"
 	"net/http"
 
 	"github.com/lucasgomide/menyoo-api/types"
 )
+
+type errorBadRequest struct {
+	Err string `json:"error"`
+}
 
 func NewProductsHandler(cmd types.ProductCmd) *ProductHandler {
 	return &ProductHandler{cmd}
@@ -16,6 +20,9 @@ func NewOrdersHandler(cmd types.OrderCmd) *OrderHandler {
 }
 
 func badRequest(w http.ResponseWriter, err error) {
-	w.WriteHeader(400)
-	fmt.Fprintf(w, "%s", err)
+	body := errorBadRequest{err.Error()}
+
+	w.Header().Set("Content-type", "application/json")
+	w.WriteHeader(http.StatusBadRequest)
+	json.NewEncoder(w).Encode(&body)
 }
