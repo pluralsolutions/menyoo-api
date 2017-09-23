@@ -23,8 +23,8 @@ func (cmd CmdOrder) CreateOrder(order schema.Order) (result schema.Order, err er
 			continue
 		}
 
-		validSelectedIngredients := validateSelectedIngredients(product, pd.IngredientProductOrders)
-		pd.IngredientProductOrders = validSelectedIngredients
+		validSelectedIngredients := validateSelectedIngredients(product, pd.Ingredients)
+		pd.Ingredients = validSelectedIngredients
 		var additionalPrice int
 		for _, vsi := range validSelectedIngredients {
 			additionalPrice += vsi.PriceCents
