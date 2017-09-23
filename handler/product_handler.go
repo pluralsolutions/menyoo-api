@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"encoding/json"
 	"net/http"
 	"strconv"
 
@@ -29,9 +28,7 @@ func (d ProductHandler) Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(200)
-	w.Header().Add("Content-type", "application/json")
-	json.NewEncoder(w).Encode(result)
+	renderSuccess(w, http.StatusOK, result)
 }
 
 func (d ProductHandler) Show(w http.ResponseWriter, r *http.Request) {
@@ -52,7 +49,5 @@ func (d ProductHandler) Show(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(200)
-	w.Header().Add("Content-type", "application/json")
-	json.NewEncoder(w).Encode(result)
+	renderSuccess(w, http.StatusOK, result)
 }

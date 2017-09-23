@@ -26,3 +26,13 @@ func badRequest(w http.ResponseWriter, err error) {
 	w.WriteHeader(http.StatusBadRequest)
 	json.NewEncoder(w).Encode(&body)
 }
+
+func renderSuccess(
+	w http.ResponseWriter,
+	status int,
+	body interface{},
+) {
+	w.Header().Set("Content-type", "application/json")
+	w.WriteHeader(status)
+	json.NewEncoder(w).Encode(body)
+}
