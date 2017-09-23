@@ -6,5 +6,5 @@ type ProductOrder struct {
 	OrderID                 int          `json:"order_id"`
 	Quantity                int          `json:"quantity"`
 	TotalPriceCents         int          `json:"total_price_cents"`
-	IngredientProductOrders []Ingredient `json:"ingredient_product_orders" gorm:"many2many:ingredient_product_orders;"`
+	IngredientProductOrders []Ingredient `json:"ingredients" gorm:"many2many:ingredient_product_orders;"`
 }
