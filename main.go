@@ -49,6 +49,11 @@ func main() {
 		handler.NewOrdersHandler(cmd.NewCmdOrder(store)).Show,
 	).Methods("GET")
 
+	router.HandleFunc(
+		"/users/me/restaurants/{restaurant_id}/orders/{order_id}/place",
+		handler.NewOrdersHandler(cmd.NewCmdOrder(store)).Place,
+	).Methods("POST")
+
 	log.Println("Starting server at port " + port)
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }

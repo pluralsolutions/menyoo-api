@@ -92,6 +92,18 @@ func (cmd CmdOrder) ShowOrder(order schema.Order) (rOrder schema.Order, err erro
 	return rOrder, err
 }
 
+func (cmd CmdOrder) PlaceOrder(order schema.Order) (rOrder schema.Order, err error) {
+	rOrder, err = cmd.Store.FindOrderByExcludeBy(order, schema.Order{Status: "paid"})
+	if err != nil {
+		return rOrder, err
+	}
+
+	rOrder.Status = "paid"
+	err = cmd.Store.SaveOrder(&rOrder)
+
+	return rOrder, err
+}
+
 func validateSelectedIngredients(p schema.Product, selectedIngredients []schema.Ingredient) (ingredients []schema.Ingredient) {
 	for _, ig := range p.IngredientGroups {
 		for _, i := range ig.Ingredients {
