@@ -16,6 +16,12 @@ func main() {
 	var store = database.NewStore(
 		database.Connect(os.Getenv("DATABASE_URL")),
 	)
+	log.Println("Database connected successfuly")
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 
 	router := mux.NewRouter()
 
@@ -43,6 +49,6 @@ func main() {
 		handler.NewOrdersHandler(cmd.NewCmdOrder(store)).Show,
 	).Methods("GET")
 
-	log.Println("Starting server..")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Println("Starting server at port " + port)
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
