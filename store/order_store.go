@@ -13,50 +13,31 @@ func NewOrderStore(db *gorm.DB) *OrderStore {
 	return &OrderStore{db}
 }
 
-func (d *OrderStore) FindOrderBy(orderAttributes schema.Order) (order schema.Order, err error) {
+func (d *OrderStore) FindOrderBy(filter schema.Order) (order schema.Order, err error) {
 	err = d.Find(
 		&order,
-		&orderAttributes,
+		&filter,
 	).Error
 
-	if err != nil {
-		return order, err
-	}
-
-	return order, nil
+	return order, err
 }
 
-func (d *OrderStore) OrderByRestaurantAndUserAndID(
-	restaurantID int,
-	userID string,
-	orderID int,
+func (d *OrderStore) FindFullOrderByExcludeBy(
+	filter schema.Order,
+	exclude schema.Order,
 ) (order schema.Order, err error) {
 
-	err = d.Find(
-		&order,
-		&schema.Order{UserID: userID, ID: orderID, RestaurantID: restaurantID},
-	).Error
+	err = d.
+		Preload("Products.Ingredients").
+		Not(exclude).
+		Find(
+			&order,
+			&filter,
+		).Error
 
-	if err != nil {
-		return order, err
-	}
-
-	return order, nil
+	return order, err
 }
 
 func (d *OrderStore) CreateOrder(order *schema.Order) error {
 	return d.Create(order).Error
-}
-
-func (d *OrderStore) ShowOrder(order schema.Order) (rOrder schema.Order, err error) {
-	err = d.
-		Preload("Products.Ingredients").
-		Find(&rOrder,
-			&schema.Order{
-				UserID:       order.UserID,
-				ID:           order.ID,
-				RestaurantID: order.RestaurantID,
-			}).Error
-
-	return rOrder, err
 }

@@ -21,26 +21,13 @@ func (d *ProductOrderStore) DeleteProductOrder(productOrder *schema.ProductOrder
 	return d.Delete(&productOrder).Error
 }
 
-func (d *ProductOrderStore) ProductOrderByID(ID int) (pd schema.ProductOrder, err error) {
-	err = d.Find(
-		&pd,
-		&schema.ProductOrder{ID: ID},
-	).Related(
-		&pd.Product,
-	).Related(
-		&pd.Ingredients, "Ingredients",
-	).Error
-
-	return pd, err
-}
-
-func (d *ProductOrderStore) FindFullProductOrderBy(attributesProductOrder schema.ProductOrder) (pd schema.ProductOrder, err error) {
+func (d *ProductOrderStore) FindFullProductOrderBy(filter schema.ProductOrder) (pd schema.ProductOrder, err error) {
 	err = d.
 		Preload("Product").
 		Preload("Ingredients").
 		Find(
 			&pd,
-			&attributesProductOrder,
+			&filter,
 		).Error
 
 	return pd, err
