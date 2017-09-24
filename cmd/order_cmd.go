@@ -5,6 +5,7 @@ import (
 
 	"github.com/lucasgomide/menyoo-api/schema"
 	"github.com/lucasgomide/menyoo-api/types"
+	"github.com/lucasgomide/menyoo-api/util"
 )
 
 type CmdOrder struct {
@@ -31,14 +32,9 @@ func (cmd CmdOrder) CreateOrder(order schema.Order) (result schema.Order, err er
 			continue
 		}
 
-		validSelectedIngredients := validateSelectedIngredients(product, pd.Ingredients)
-		pd.Ingredients = validSelectedIngredients
-		var additionalPrice int
-		for _, vsi := range validSelectedIngredients {
-			additionalPrice += vsi.PriceCents
-		}
+		pd.Ingredients = validateSelectedIngredients(product, pd.Ingredients)
 
-		pd.TotalPriceCents = (pd.Quantity * product.PriceCents) + additionalPrice
+		pd.TotalPriceCents = util.CalculatesProductOrderPrice(pd)
 
 		result.Products = append(result.Products, pd)
 	}

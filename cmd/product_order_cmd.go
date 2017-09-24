@@ -3,6 +3,7 @@ package cmd
 import (
 	"github.com/lucasgomide/menyoo-api/schema"
 	"github.com/lucasgomide/menyoo-api/types"
+	"github.com/lucasgomide/menyoo-api/util"
 )
 
 type CmdProductOrder struct {
@@ -56,7 +57,7 @@ func (cmd CmdProductOrder) UpdateProductOrderQuantity(
 
 	attributesUpdates := schema.ProductOrder{
 		Quantity:        currentProductOrder.Quantity,
-		TotalPriceCents: CalculatesProductOrderPrice(currentProductOrder),
+		TotalPriceCents: util.CalculatesProductOrderPrice(currentProductOrder),
 	}
 
 	err = cmd.Store.UpdateProductOrder(&currentProductOrder, attributesUpdates)
@@ -66,12 +67,4 @@ func (cmd CmdProductOrder) UpdateProductOrderQuantity(
 	}
 
 	return currentProductOrder, err
-}
-
-func CalculatesProductOrderPrice(pd schema.ProductOrder) int {
-	var additionalPrice int
-	for _, ingredient := range pd.Ingredients {
-		additionalPrice += ingredient.PriceCents
-	}
-	return (pd.Quantity * pd.Product.PriceCents) + additionalPrice
 }

@@ -67,5 +67,5 @@ func (cmd OrderHandler) Show(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	renderSuccess(w, http.StatusCreated, order)
+	renderSuccess(w, http.StatusOK, order)
 }
