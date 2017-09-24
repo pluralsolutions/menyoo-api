@@ -13,6 +13,19 @@ func NewOrderStore(db *gorm.DB) *OrderStore {
 	return &OrderStore{db}
 }
 
+func (d *OrderStore) FindOrderBy(orderAttributes schema.Order) (order schema.Order, err error) {
+	err = d.Find(
+		&order,
+		&orderAttributes,
+	).Error
+
+	if err != nil {
+		return order, err
+	}
+
+	return order, nil
+}
+
 func (d *OrderStore) OrderByRestaurantAndUserAndID(
 	restaurantID int,
 	userID string,

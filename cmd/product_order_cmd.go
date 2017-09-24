@@ -25,17 +25,22 @@ func (cmd CmdProductOrder) UpdateProductOrderQuantity(
 		ProductOrderID int
 	})
 
-	_, err = cmd.Store.OrderByRestaurantAndUserAndID(
-		vStruct.RestaurantID,
-		vStruct.UserID,
-		vStruct.OrderID,
+	_, err = cmd.Store.FindOrderBy(
+		schema.Order{
+			RestaurantID: vStruct.RestaurantID,
+			UserID:       vStruct.UserID,
+			ID:           vStruct.OrderID,
+			Status:       "requested",
+		},
 	)
 
 	if err != nil {
 		return pd, err
 	}
 
-	currentProductOrder, err := cmd.Store.ProductOrderByID(vStruct.ProductOrderID)
+	currentProductOrder, err := cmd.Store.FindFullProductOrderBy(
+		schema.ProductOrder{OrderID: vStruct.OrderID, ID: vStruct.ProductOrderID},
+	)
 
 	if err != nil {
 		return pd, err

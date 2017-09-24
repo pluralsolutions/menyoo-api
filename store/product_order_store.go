@@ -33,3 +33,15 @@ func (d *ProductOrderStore) ProductOrderByID(ID int) (pd schema.ProductOrder, er
 
 	return pd, err
 }
+
+func (d *ProductOrderStore) FindFullProductOrderBy(attributesProductOrder schema.ProductOrder) (pd schema.ProductOrder, err error) {
+	err = d.
+		Preload("Product").
+		Preload("Ingredients").
+		Find(
+			&pd,
+			&attributesProductOrder,
+		).Error
+
+	return pd, err
+}
