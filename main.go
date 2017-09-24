@@ -37,7 +37,7 @@ func main() {
 
 	router.HandleFunc(
 		"/orders", handler.NewOrdersHandler(cmd.NewCmdOrder(store)).Create,
-	).Methods("POST")
+	).Methods("OPTIONS", "POST")
 
 	router.HandleFunc(
 		"/restaurants/{restaurant_id}/orders/{order_id}/products/{product_order_id}/quantity",
@@ -54,13 +54,13 @@ func main() {
 	router.HandleFunc(
 		"/users/me/restaurants/{restaurant_id}/orders/{order_id}/place",
 		handler.NewOrdersHandler(cmd.NewCmdOrder(store)).Place,
-	).Methods("POST")
+	).Methods("OPTIONS", "POST")
 
 	// replace restaurant_id -> order_id
 	router.HandleFunc(
 		"/users/me/restaurants/{restaurant_id}/products/{product_id}/evaluations",
 		handler.NewEvaluationsHandler(cmd.NewCmdEvaluation(store)).Create,
-	).Methods("POST")
+	).Methods("OPTIONS", "POST")
 
 	router.HandleFunc(
 		"/users/me/restaurants/{restaurant_id}/products",
