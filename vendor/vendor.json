@@ -37,6 +37,12 @@
 			"path": "github.com/lib/pq/oid",
 			"revision": "23da1db4f16d9658a86ae9b717c245fc078f10f1",
 			"revisionTime": "2017-09-18T17:50:43Z"
+		},
+		{
+			"checksumSHA1": "I778b2sbNN/yjwKSdb3y7hz2yUQ=",
+			"path": "github.com/rs/cors",
+			"revision": "eabcc6af4bbe5ad3a949d36450326a2b0b9894b8",
+			"revisionTime": "2017-08-01T07:32:01Z"
 		}
 	],
 	"rootPath": "github.com/lucasgomide/menyoo-api"
