@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
+
+	"github.com/gorilla/mux"
 
 	"github.com/lucasgomide/menyoo-api/schema"
 	"github.com/lucasgomide/menyoo-api/types"
@@ -29,4 +32,40 @@ func (cmd OrderHandler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	renderSuccess(w, http.StatusCreated, result)
+}
+
+func (cmd OrderHandler) Show(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+
+	restaurantID, err := strconv.Atoi(params["restaurant_id"])
+	if err != nil {
+		badRequest(w, err)
+		return
+	}
+
+	orderID, err := strconv.Atoi(params["order_id"])
+	if err != nil {
+		badRequest(w, err)
+		return
+	}
+
+	if restaurantID <= 0 || orderID <= 0 {
+		badRequest(w, missingParamsError())
+		return
+	}
+
+	uID := r.Header.Get("uid")
+	if uID == "" {
+		UnauthorizedRequest(w)
+		return
+	}
+
+	order, err := cmd.ShowOrder(schema.Order{UserID: uID, RestaurantID: restaurantID, ID: orderID})
+
+	if err != nil {
+		badRequest(w, err)
+		return
+	}
+
+	renderSuccess(w, http.StatusCreated, order)
 }

@@ -18,6 +18,7 @@ type ProductStore interface {
 type OrderStore interface {
 	CreateOrder(order *schema.Order) error
 	OrderByRestaurantAndUserAndID(restaurantID int, userID string, orderID int) (schema.Order, error)
+	ShowOrder(order schema.Order) (schema.Order, error)
 }
 
 type ProductOrderStore interface {
@@ -33,6 +34,7 @@ type ProductCmd interface {
 
 type OrderCmd interface {
 	CreateOrder(order schema.Order) (schema.Order, error)
+	ShowOrder(order schema.Order) (schema.Order, error)
 }
 
 type ProductOrderCmd interface {

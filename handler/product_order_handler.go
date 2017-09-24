@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"errors"
 	"net/http"
 	"strconv"
 
@@ -66,8 +65,4 @@ func (cmd ProductOrderHandler) UpdateQuantity(w http.ResponseWriter, r *http.Req
 	}
 
 	renderSuccess(w, http.StatusOK, result)
-}
-
-func missingParamsError() error {
-	return errors.New("You missing some parameters")
 }

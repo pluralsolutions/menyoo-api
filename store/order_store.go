@@ -32,9 +32,18 @@ func (d *OrderStore) OrderByRestaurantAndUserAndID(
 }
 
 func (d *OrderStore) CreateOrder(order *schema.Order) error {
-	if err := d.Create(order).Error; err != nil {
-		return err
-	}
+	return d.Create(order).Error
+}
 
-	return nil
+func (d *OrderStore) ShowOrder(order schema.Order) (rOrder schema.Order, err error) {
+	err = d.
+		Preload("Products.Ingredients").
+		Find(&rOrder,
+			&schema.Order{
+				UserID:       order.UserID,
+				ID:           order.ID,
+				RestaurantID: order.RestaurantID,
+			}).Error
+
+	return rOrder, err
 }

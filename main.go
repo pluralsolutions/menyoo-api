@@ -38,6 +38,11 @@ func main() {
 		).UpdateQuantity,
 	).Methods("PUT")
 
+	router.HandleFunc(
+		"/users/me/restaurants/{restaurant_id}/orders/{order_id}",
+		handler.NewOrdersHandler(cmd.NewCmdOrder(store)).Show,
+	).Methods("GET")
+
 	log.Println("Starting server..")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

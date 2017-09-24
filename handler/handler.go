@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/lucasgomide/menyoo-api/types"
@@ -31,6 +32,12 @@ func badRequest(w http.ResponseWriter, err error) {
 	json.NewEncoder(w).Encode(&body)
 }
 
+func UnauthorizedRequest(
+	w http.ResponseWriter,
+) {
+	w.WriteHeader(http.StatusUnauthorized)
+}
+
 func renderSuccess(
 	w http.ResponseWriter,
 	status int,
@@ -39,4 +46,8 @@ func renderSuccess(
 	w.Header().Set("Content-type", "application/json")
 	w.WriteHeader(status)
 	json.NewEncoder(w).Encode(body)
+}
+
+func missingParamsError() error {
+	return errors.New("You missing some parameters")
 }
