@@ -8,6 +8,7 @@ type Store interface {
 	ProductStore
 	OrderStore
 	ProductOrderStore
+	EvaluationStore
 }
 
 type ProductStore interface {
@@ -27,6 +28,11 @@ type ProductOrderStore interface {
 	UpdateProductOrder(*schema.ProductOrder, schema.ProductOrder) error
 	DeleteProductOrder(*schema.ProductOrder) error
 	FindFullProductOrderBy(filter schema.ProductOrder) (schema.ProductOrder, error)
+	FindProductByUser(productID int, userID string) (schema.ProductOrder, error)
+}
+
+type EvaluationStore interface {
+	CreateEvaluation(order *schema.Evaluation) error
 }
 
 type ProductCmd interface {
@@ -42,4 +48,8 @@ type OrderCmd interface {
 
 type ProductOrderCmd interface {
 	UpdateProductOrderQuantity(params interface{}) (schema.ProductOrder, error)
+}
+
+type EvaluationCmd interface {
+	CreateEvaluation(evaluation schema.Evaluation) (schema.Evaluation, error)
 }

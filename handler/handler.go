@@ -24,6 +24,10 @@ func NewProductOrdersHandler(cmd types.ProductOrderCmd) *ProductOrderHandler {
 	return &ProductOrderHandler{cmd}
 }
 
+func NewEvaluationsHandler(cmd types.EvaluationCmd) *EvaluationHandler {
+	return &EvaluationHandler{cmd}
+}
+
 func badRequest(w http.ResponseWriter, err error) {
 	body := errorBadRequest{err.Error()}
 

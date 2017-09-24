@@ -262,3 +262,24 @@ uid | {uid from FirebaseAuth}
   "products": null
 }
 ```
+
+## Evaluations
+
+POST - users/me/restaurants/1/orders/3/evaluations
+
+### Headers
+
+```
+uid | {uid from FirebaseAuth}
+```
+
+### Response Body
+
+```json
+{
+  "id": 8,
+  "user_id": "souza",
+  "product_id": 1,
+  "score": 30
+}
+```

@@ -15,3 +15,7 @@ func NewCmdOrder(store types.Store) *CmdOrder {
 func NewCmdProductOrder(store types.Store) *CmdProductOrder {
 	return &CmdProductOrder{store}
 }
+
+func NewCmdEvaluation(store types.Store) *CmdEvaluation {
+	return &CmdEvaluation{store}
+}

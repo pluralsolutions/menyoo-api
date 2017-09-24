@@ -45,3 +45,16 @@ func (d *ProductOrderStore) FindFullProductOrderBy(
 
 	return pd, err
 }
+
+func (d *ProductStore) FindProductByUser(
+	productID int,
+	userID string,
+) (productOrder schema.ProductOrder, err error) {
+
+	err = d.
+		Joins("JOIN orders ON orders.id = product_orders.order_id").
+		Where("product_orders.product_id = ? AND orders.user_id = ?", productID, userID).
+		Find(&productOrder).Error
+
+	return productOrder, err
+}

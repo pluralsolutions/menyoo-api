@@ -54,6 +54,11 @@ func main() {
 		handler.NewOrdersHandler(cmd.NewCmdOrder(store)).Place,
 	).Methods("POST")
 
+	router.HandleFunc(
+		"/users/me/restaurants/{restaurant_id}/products/{product_id}/evaluations",
+		handler.NewEvaluationsHandler(cmd.NewCmdEvaluation(store)).Create,
+	).Methods("POST")
+
 	log.Println("Starting server at port " + port)
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }
