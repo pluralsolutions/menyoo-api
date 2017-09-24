@@ -33,7 +33,7 @@ func (cmd CmdOrder) CreateOrder(order schema.Order) (result schema.Order, err er
 		}
 
 		pd.Ingredients = validateSelectedIngredients(product, pd.Ingredients)
-
+		pd.Product = product
 		pd.TotalPriceCents = util.CalculatesProductOrderPrice(pd)
 
 		result.Products = append(result.Products, pd)
@@ -44,12 +44,45 @@ func (cmd CmdOrder) CreateOrder(order schema.Order) (result schema.Order, err er
 		return result, err
 	}
 
+	selectedOrder, count, _ := cmd.Store.CountOrdersBy(
+		schema.Order{
+			UserID:       order.UserID,
+			RestaurantID: order.RestaurantID,
+			Status:       "requested",
+		},
+	)
+
 	result.UserID = order.UserID
 	result.Status = "requested"
 	result.RestaurantID = order.RestaurantID
 
-	if err := cmd.Store.CreateOrder(&result); err != nil {
-		return result, err
+	if count > 0 {
+		result.ID = selectedOrder.ID
+
+		for _, product := range selectedOrder.Products {
+			for i, resultProduct := range result.Products {
+				if util.IsSameProductOrder(product, resultProduct) {
+					result.Products[i].ID = product.ID
+					result.Products[i].Quantity = product.Quantity + 1
+
+					result.Products[i].TotalPriceCents = util.CalculatesProductOrderPrice(
+						schema.ProductOrder{
+							Quantity:    result.Products[i].Quantity,
+							Product:     product.Product,
+							Ingredients: result.Products[i].Ingredients,
+						},
+					)
+				}
+			}
+		}
+
+		if err := cmd.Store.SaveOrder(&result); err != nil {
+			return result, err
+		}
+	} else {
+		if err := cmd.Store.CreateOrder(&result); err != nil {
+			return result, err
+		}
 	}
 	return result, err
 }

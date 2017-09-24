@@ -7,7 +7,7 @@ type IngredientGroup struct {
 	Title       string       `json:"title"`
 	Basic       bool         `json:"basic"`
 	ProductID   int          `json:"product_id"`
-	Ingredients []Ingredient `json:"ingredients" gorm:"ForeignKey:ID"`
+	Ingredients []Ingredient `json:"ingredients" gorm:"ForeignKey:IngredientGroupID"`
 	DeletedAt   *time.Time   `json:"-"`
 	UpdatedAt   *time.Time   `json:"-"`
 }

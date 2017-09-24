@@ -22,6 +22,19 @@ func (d *OrderStore) FindOrderBy(filter schema.Order) (order schema.Order, err e
 	return order, err
 }
 
+func (d *OrderStore) CountOrdersBy(filter schema.Order) (order schema.Order, count int, err error) {
+	err = d.
+		Preload("Products.Ingredients").
+		Preload("Products.Product").
+		Where(filter).
+		Find(
+			&order,
+		).Count(&count).
+		Error
+
+	return order, count, err
+}
+
 func (d *OrderStore) FindFullOrderByExcludeBy(
 	filter schema.Order,
 	exclude schema.Order,
@@ -40,4 +53,8 @@ func (d *OrderStore) FindFullOrderByExcludeBy(
 
 func (d *OrderStore) CreateOrder(order *schema.Order) error {
 	return d.Create(order).Error
+}
+
+func (d *OrderStore) SaveOrder(order *schema.Order) error {
+	return d.Save(order).Error
 }
