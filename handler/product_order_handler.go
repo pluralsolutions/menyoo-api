@@ -14,13 +14,20 @@ type ProductOrderHandler struct {
 }
 
 func (cmd ProductOrderHandler) UpdateQuantity(w http.ResponseWriter, r *http.Request) {
+	uID := r.Header.Get("uid")
+	if uID == "" {
+		UnauthorizedRequest(w)
+		return
+	}
+
 	var params struct {
-		Quantity       int    `json:"quantity"`
-		UserID         string `json:"user_id"`
+		Quantity       int `json:"quantity"`
+		UserID         string
 		RestaurantID   int
 		OrderID        int
 		ProductOrderID int
 	}
+
 	muxParams := mux.Vars(r)
 
 	restaurantID, err := strconv.Atoi(muxParams["restaurant_id"])
@@ -48,7 +55,7 @@ func (cmd ProductOrderHandler) UpdateQuantity(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	if restaurantID <= 0 || orderID <= 0 || productOrderID <= 0 || params.UserID == "" {
+	if restaurantID <= 0 || orderID <= 0 || productOrderID <= 0 {
 		badRequest(w, missingParamsError())
 		return
 	}
@@ -56,6 +63,7 @@ func (cmd ProductOrderHandler) UpdateQuantity(w http.ResponseWriter, r *http.Req
 	params.RestaurantID = restaurantID
 	params.OrderID = orderID
 	params.ProductOrderID = productOrderID
+	params.UserID = uID
 
 	result, err := cmd.UpdateProductOrderQuantity(params)
 

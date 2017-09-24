@@ -18,8 +18,8 @@ func (cmd CmdProductOrder) UpdateProductOrderQuantity(
 ) {
 
 	vStruct := params.(struct {
-		Quantity       int    `json:"quantity"`
-		UserID         string `json:"user_id"`
+		Quantity       int `json:"quantity"`
+		UserID         string
 		RestaurantID   int
 		OrderID        int
 		ProductOrderID int
