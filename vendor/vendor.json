@@ -1,0 +1,37 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "+i76HB4vEOFz+vLYsUmThS6oeQI=",
+			"path": "github.com/gorilla/mux",
+			"revision": "24fca303ac6da784b9e8269f724ddeb0b2eea5e7",
+			"revisionTime": "2017-09-05T17:10:44Z"
+		},
+		{
+			"checksumSHA1": "eljaapCfm6h09IEjd97AM9Pdeuo=",
+			"path": "github.com/jinzhu/gorm",
+			"revision": "b1885a643b4977c9089d77eb07c0fd96591f94b8",
+			"revisionTime": "2017-09-04T14:39:19Z"
+		},
+		{
+			"checksumSHA1": "VIp1lZm6joWhlNdwhady8u//qRw=",
+			"path": "github.com/jinzhu/inflection",
+			"revision": "1c35d901db3da928c72a72d8458480cc9ade058f",
+			"revisionTime": "2017-01-02T12:52:26Z"
+		},
+		{
+			"checksumSHA1": "RYMOEINLFNWIJk8aKNifSlPhg9U=",
+			"path": "github.com/lib/pq",
+			"revision": "23da1db4f16d9658a86ae9b717c245fc078f10f1",
+			"revisionTime": "2017-09-18T17:50:43Z"
+		},
+		{
+			"checksumSHA1": "ATnwV0POluBNQEMjPdylodz0oK0=",
+			"path": "github.com/lib/pq/oid",
+			"revision": "23da1db4f16d9658a86ae9b717c245fc078f10f1",
+			"revisionTime": "2017-09-18T17:50:43Z"
+		}
+	],
+	"rootPath": "github.com/lucasgomide/menyoo-api"
+}
