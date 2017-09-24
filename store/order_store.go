@@ -1,6 +1,8 @@
 package store
 
 import (
+	"fmt"
+
 	"github.com/jinzhu/gorm"
 	"github.com/lucasgomide/menyoo-api/schema"
 )
@@ -13,26 +15,16 @@ func NewOrderStore(db *gorm.DB) *OrderStore {
 	return &OrderStore{db}
 }
 
-func (d *OrderStore) FindOrderBy(filter schema.Order) (order schema.Order, err error) {
+func (d *OrderStore) FindOrderBy(
+	filter schema.Order,
+	exclude ...schema.Order,
+) (order schema.Order, err error) {
+
+	fmt.Print("Exclude", exclude)
 	err = d.Find(
 		&order,
 		&filter,
 	).Error
-
-	return order, err
-}
-
-func (d *OrderStore) FindOrderByExcludeBy(
-	filter schema.Order,
-	exclude schema.Order,
-) (order schema.Order, err error) {
-
-	err = d.
-		Not(&exclude).
-		Find(
-			&order,
-			&filter,
-		).Error
 
 	return order, err
 }

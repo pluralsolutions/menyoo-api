@@ -11,16 +11,15 @@ type Store interface {
 }
 
 type ProductStore interface {
-	ProductsByRestaurant(restaurantID int) ([]schema.Product, error)
-	ProductByRestaurantAndID(restaurantID int, productID int) (schema.Product, error)
+	FindProductsBy(filter schema.Product) ([]schema.Product, error)
+	FindFullProductBy(filter schema.Product) (schema.Product, error)
 }
 
 type OrderStore interface {
 	SaveOrder(order *schema.Order) error
 	CreateOrder(order *schema.Order) error
-	FindOrderBy(filter schema.Order) (schema.Order, error)
+	FindOrderBy(filter schema.Order, exclude ...schema.Order) (schema.Order, error)
 	FindFullOrderByExcludeBy(filter schema.Order, exclude schema.Order) (schema.Order, error)
-	FindOrderByExcludeBy(filter schema.Order, exclude schema.Order) (schema.Order, error)
 	CountOrdersBy(filter schema.Order) (schema.Order, int, error)
 }
 

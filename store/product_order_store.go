@@ -13,15 +13,28 @@ func NewProductOrderStore(db *gorm.DB) *ProductOrderStore {
 	return &ProductOrderStore{db}
 }
 
-func (d *ProductOrderStore) UpdateProductOrder(productOrder *schema.ProductOrder, updateAttributes schema.ProductOrder) error {
+func (d *ProductOrderStore) UpdateProductOrder(
+	productOrder *schema.ProductOrder,
+	updateAttributes schema.ProductOrder,
+) error {
+
 	return d.Model(&productOrder).UpdateColumns(updateAttributes).Error
 }
 
-func (d *ProductOrderStore) DeleteProductOrder(productOrder *schema.ProductOrder) error {
+func (d *ProductOrderStore) DeleteProductOrder(
+	productOrder *schema.ProductOrder,
+) error {
+
 	return d.Delete(&productOrder).Error
 }
 
-func (d *ProductOrderStore) FindFullProductOrderBy(filter schema.ProductOrder) (pd schema.ProductOrder, err error) {
+func (d *ProductOrderStore) FindFullProductOrderBy(
+	filter schema.ProductOrder,
+) (
+	pd schema.ProductOrder,
+	err error,
+) {
+
 	err = d.
 		Preload("Product").
 		Preload("Ingredients").

@@ -23,9 +23,8 @@ func (cmd CmdOrder) CreateOrder(order schema.Order) (result schema.Order, err er
 			continue
 		}
 
-		product, err := cmd.Store.ProductByRestaurantAndID(
-			order.RestaurantID,
-			pd.ProductID,
+		product, err := cmd.Store.FindFullProductBy(
+			schema.Product{RestaurantID: order.RestaurantID, ID: pd.ProductID},
 		)
 
 		if err != nil {
@@ -93,7 +92,7 @@ func (cmd CmdOrder) ShowOrder(order schema.Order) (rOrder schema.Order, err erro
 }
 
 func (cmd CmdOrder) PlaceOrder(order schema.Order) (rOrder schema.Order, err error) {
-	rOrder, err = cmd.Store.FindOrderByExcludeBy(order, schema.Order{Status: "paid"})
+	rOrder, err = cmd.Store.FindOrderBy(order, schema.Order{Status: "paid"})
 	if err != nil {
 		return rOrder, err
 	}

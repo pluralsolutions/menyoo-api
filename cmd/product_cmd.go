@@ -9,19 +9,21 @@ type CmdProduct struct {
 	types.Store
 }
 
-func (cmd CmdProduct) ProductsByRestaurant(restaurantID int) ([]schema.Product, error) {
-	result, err := cmd.Store.ProductsByRestaurant(restaurantID)
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
+func (cmd CmdProduct) ProductsByRestaurant(restaurantID int) (
+	products []schema.Product,
+	err error,
+) {
+
+	products, err = cmd.Store.FindProductsBy(
+		schema.Product{RestaurantID: restaurantID},
+	)
+	return products, err
 }
 
-func (cmd CmdProduct) ProductByRestaurantAndID(restaurantID int, productID int) (result schema.Product, err error) {
-	result, err = cmd.Store.ProductByRestaurantAndID(restaurantID, productID)
+func (cmd CmdProduct) ProductByRestaurantAndID(restaurantID int, productID int) (product schema.Product, err error) {
+	product, err = cmd.Store.FindFullProductBy(
+		schema.Product{RestaurantID: restaurantID, ID: productID},
+	)
 
-	if err != nil {
-		return result, err
-	}
-	return result, nil
+	return product, err
 }
