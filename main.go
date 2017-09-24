@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/gorilla/handlers"
+
 	"github.com/gorilla/mux"
 	"github.com/lucasgomide/menyoo-api/cmd"
 	"github.com/lucasgomide/menyoo-api/database"
@@ -20,7 +22,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080"
+		port = "3000"
 	}
 
 	router := mux.NewRouter()
@@ -60,5 +62,10 @@ func main() {
 	).Methods("POST")
 
 	log.Println("Starting server at port " + port)
-	log.Fatal(http.ListenAndServe(":"+port, router))
+
+	loggedRouter := handlers.LoggingHandler(os.Stdout, router)
+
+	log.Fatal(http.ListenAndServe(":"+port, handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(
+		handlers.CompressHandler(loggedRouter),
+	)))
 }
