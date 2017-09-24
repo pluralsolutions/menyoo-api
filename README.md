@@ -141,11 +141,98 @@ POST - /orders
 
 PUT - /restaurant/{restaurant_id}/orders/{order_id}/products/{product_order_id}/quantity
 
-#### Payload:
+
+### Headers
+
+```
+uid | {uid from FirebaseAuth}
+```
+
+### Payload
 
 ```
 {
-  "user_id": "123das",
   "quantity": 12
+}
+```
+
+### Response Body
+
+```json
+{
+   "id":7,
+   "product_id":1,
+   "order_id":4,
+   "quantity":1,
+   "total_price_cents":2190,
+   "ingredients":[
+      {
+         "id":2,
+         "name":"Muçarela",
+         "price_cents":50
+      },
+      {
+         "id":1,
+         "name":"Gorgonzola",
+         "price_cents":140
+      }
+   ]
+}
+```
+
+## Retrive products order from user
+
+GET - /users/me/restaurants/1/orders/4
+
+
+### Headers
+
+```
+uid | {uid from FirebaseAuth}
+```
+
+### Response Body
+
+```json
+{
+   "id":4,
+   "user_id":"souza",
+   "restaurant_id":1,
+   "status":"requested",
+   "products":[
+      {
+         "id":6,
+         "product_id":1,
+         "order_id":4,
+         "quantity":12,
+         "total_price_cents":24140,
+         "ingredients":[
+            {
+               "id":1,
+               "name":"Gorgonzola",
+               "price_cents":140
+            }
+         ]
+      },
+      {
+         "id":7,
+         "product_id":1,
+         "order_id":4,
+         "quantity":3,
+         "total_price_cents":6190,
+         "ingredients":[
+            {
+               "id":2,
+               "name":"Muçarela",
+               "price_cents":50
+            },
+            {
+               "id":1,
+               "name":"Gorgonzola",
+               "price_cents":140
+            }
+         ]
+      }
+   ]
 }
 ```
