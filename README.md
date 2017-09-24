@@ -240,3 +240,25 @@ uid | {uid from FirebaseAuth}
    ]
 }
 ```
+
+## Place an Order
+
+POST - users/me/restaurants/1/orders/3/place
+
+### Headers
+
+```
+uid | {uid from FirebaseAuth}
+```
+
+### Response Body
+
+```json
+{
+  "id": 3,
+  "user_id": "carlos",
+  "restaurant_id": 1,
+  "status": "paid",
+  "products": null
+}
+```
