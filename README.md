@@ -184,7 +184,7 @@ uid | {uid from FirebaseAuth}
 }
 ```
 
-## Retrive products order from user
+## Retrieve products order from user
 
 GET - /users/me/restaurants/1/orders/4
 
