@@ -6,11 +6,11 @@ import (
 	"os"
 
 	"github.com/gorilla/handlers"
-
 	"github.com/gorilla/mux"
 	"github.com/lucasgomide/menyoo-api/cmd"
 	"github.com/lucasgomide/menyoo-api/database"
 	"github.com/lucasgomide/menyoo-api/handler"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -71,9 +71,17 @@ func main() {
 
 	log.Println("Starting server at port " + port)
 
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowedMethods:   []string{"GET", "POST", "OPTIONS", "PUT"},
+		AllowCredentials: true,
+	})
+
 	loggedRouter := handlers.LoggingHandler(os.Stdout, router)
 
-	log.Fatal(http.ListenAndServe(":"+port, handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(
-		handlers.CompressHandler(loggedRouter),
-	)))
+	log.Fatal(http.ListenAndServe(":"+port,
+		c.Handler(
+			handlers.CompressHandler(loggedRouter),
+		),
+	))
 }
