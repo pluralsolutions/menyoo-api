@@ -27,19 +27,12 @@ func (d *ProductStore) ProductsByRestaurant(restaurantID int) (products []schema
 }
 
 func (d *ProductStore) ProductByRestaurantAndID(restaurantID int, productID int) (product schema.Product, err error) {
-	err = d.Find(
-		&product,
-		&schema.Product{ID: productID, RestaurantID: restaurantID},
-	).Related(&product.IngredientGroups).Error
-
-	if err != nil {
-		return product, err
-	}
-
-	for i, ig := range product.IngredientGroups {
-		d.Where("ingredient_group_id = ?", &ig.ID).Find(&ig.Ingredients)
-		product.IngredientGroups[i].Ingredients = ig.Ingredients
-	}
+	err = d.
+		Preload("IngredientGroups.Ingredients").
+		Find(
+			&product,
+			&schema.Product{ID: productID, RestaurantID: restaurantID},
+		).Error
 
 	if err != nil {
 		return product, err
