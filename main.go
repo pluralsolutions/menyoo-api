@@ -19,17 +19,24 @@ func main() {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/restaurants/{restaurant_id}/products", handler.NewProductsHandler(cmd.NewCmdProduct(store)).Handler)
-	router.HandleFunc("/restaurants/{restaurant_id}/products/{product_id}", handler.NewProductsHandler(cmd.NewCmdProduct(store)).Show)
+	router.HandleFunc(
+		"/restaurants/{restaurant_id}/products", handler.NewProductsHandler(cmd.NewCmdProduct(store)).Handler,
+	).Methods("GET")
 
-	router.HandleFunc("/orders", handler.NewOrdersHandler(cmd.NewCmdOrder(store)).Create)
+	router.HandleFunc(
+		"/restaurants/{restaurant_id}/products/{product_id}", handler.NewProductsHandler(cmd.NewCmdProduct(store)).Show,
+	).Methods("GET")
+
+	router.HandleFunc(
+		"/orders", handler.NewOrdersHandler(cmd.NewCmdOrder(store)).Create,
+	).Methods("POST")
 
 	router.HandleFunc(
 		"/restaurants/{restaurant_id}/orders/{order_id}/products/{product_order_id}/quantity",
 		handler.NewProductOrdersHandler(
 			cmd.NewCmdProductOrder(store),
 		).UpdateQuantity,
-	)
+	).Methods("PUT")
 
 	log.Println("Starting server..")
 	log.Fatal(http.ListenAndServe(":8080", router))
