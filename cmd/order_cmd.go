@@ -87,7 +87,7 @@ func (cmd CmdOrder) CreateOrder(order schema.Order) (result schema.Order, err er
 }
 
 func (cmd CmdOrder) ShowOrder(order schema.Order) (rOrder schema.Order, err error) {
-	rOrder, err = cmd.Store.FindFullOrderByExcludeBy(order, schema.Order{Status: "paid"})
+	rOrder, err = cmd.Store.FindFullOrderBy(order)
 	return rOrder, err
 }
 

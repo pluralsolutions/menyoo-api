@@ -42,9 +42,9 @@ func (d *OrderStore) CountOrdersBy(filter schema.Order) (order schema.Order, cou
 	return order, count, err
 }
 
-func (d *OrderStore) FindFullOrderByExcludeBy(
+func (d *OrderStore) FindFullOrderBy(
 	filter schema.Order,
-	exclude schema.Order,
+	exclude ...schema.Order,
 ) (order schema.Order, err error) {
 
 	err = d.

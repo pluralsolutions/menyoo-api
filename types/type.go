@@ -20,7 +20,7 @@ type OrderStore interface {
 	SaveOrder(order *schema.Order) error
 	CreateOrder(order *schema.Order) error
 	FindOrderBy(filter schema.Order, exclude ...schema.Order) (schema.Order, error)
-	FindFullOrderByExcludeBy(filter schema.Order, exclude schema.Order) (schema.Order, error)
+	FindFullOrderBy(filter schema.Order, exclude ...schema.Order) (schema.Order, error)
 	CountOrdersBy(filter schema.Order) (schema.Order, int, error)
 }
 
