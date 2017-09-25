@@ -326,3 +326,64 @@ uid | {uid from FirebaseAuth}
   "score": 30
 }
 ```
+
+## All products by user from restaurant
+
+GET - /users/me/restaurants/{restaurant_id}/products
+
+### Headers
+```
+uid | {uid from FirebaseAuth}
+```
+
+### Response Body
+```json
+[
+   {
+      "id":1,
+      "product":{
+         "id":1,
+         "restaurant_id":1,
+         "title":"Pizza",
+         "description":"Pizza boa",
+         "image":"http://image.com",
+         "price_cents":2000,
+         "ingredient_groups":null
+      },
+      "product_id":1,
+      "order_id":1,
+      "quantity":3,
+      "total_price_cents":15000,
+      "ingredients":null,
+      "evaluation":{
+         "id":2,
+         "user_id":"abc123",
+         "product_order_id":1,
+         "score":20
+      }
+   },
+   {
+      "id":2,
+      "product":{
+         "id":1,
+         "restaurant_id":1,
+         "title":"Pizza",
+         "description":"Pizza boa",
+         "image":"http://image.com",
+         "price_cents":2000,
+         "ingredient_groups":null
+      },
+      "product_id":1,
+      "order_id":1,
+      "quantity":1,
+      "total_price_cents":10000,
+      "ingredients":null,
+      "evaluation":{
+         "id":0,
+         "user_id":"",
+         "product_order_id":0,
+         "score":0
+      }
+   }
+]
+```
