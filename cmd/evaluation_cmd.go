@@ -11,7 +11,7 @@ type CmdEvaluation struct {
 
 func (cmd CmdEvaluation) CreateEvaluation(evaluation schema.Evaluation) (schema.Evaluation, error) {
 	var err error
-	if _, err = cmd.Store.FindProductByUser(evaluation.ProductID, evaluation.UserID); err != nil {
+	if _, err = cmd.Store.FindProductByUser(evaluation.ProductOrderID, evaluation.UserID); err != nil {
 		return evaluation, err
 	}
 

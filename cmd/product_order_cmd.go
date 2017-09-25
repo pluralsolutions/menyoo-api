@@ -13,7 +13,7 @@ type CmdProductOrder struct {
 func (cmd CmdProductOrder) UpdateProductOrderQuantity(
 	params interface{},
 ) (
-	pd schema.ProductOrder,
+	po schema.ProductOrder,
 	err error,
 ) {
 
@@ -35,7 +35,7 @@ func (cmd CmdProductOrder) UpdateProductOrderQuantity(
 	)
 
 	if err != nil {
-		return pd, err
+		return po, err
 	}
 
 	currentProductOrder, err := cmd.Store.FindFullProductOrderBy(
@@ -43,7 +43,7 @@ func (cmd CmdProductOrder) UpdateProductOrderQuantity(
 	)
 
 	if err != nil {
-		return pd, err
+		return po, err
 	}
 
 	if currentProductOrder.Quantity == vStruct.Quantity {
@@ -53,9 +53,9 @@ func (cmd CmdProductOrder) UpdateProductOrderQuantity(
 	if vStruct.Quantity <= 0 {
 		err = cmd.Store.DeleteProductOrder(&currentProductOrder)
 		if err != nil {
-			return pd, err
+			return po, err
 		}
-		return pd, err
+		return po, err
 	}
 
 	currentProductOrder.Quantity = vStruct.Quantity
@@ -68,8 +68,19 @@ func (cmd CmdProductOrder) UpdateProductOrderQuantity(
 	err = cmd.Store.UpdateProductOrder(&currentProductOrder, attributesUpdates)
 
 	if err != nil {
-		return pd, err
+		return po, err
 	}
 
 	return currentProductOrder, err
+}
+
+func (cmd CmdProductOrder) ProductsByUser(
+	restaurantID int,
+	userID string,
+) (
+	po []schema.ProductOrder,
+	err error,
+) {
+	po, err = cmd.Store.FindProductOrderWithEvaluations(restaurantID, userID)
+	return po, err
 }

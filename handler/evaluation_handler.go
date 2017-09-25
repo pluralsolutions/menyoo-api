@@ -29,18 +29,18 @@ func (cmd EvaluationHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	productID, err := strconv.Atoi(muxParams["product_id"])
+	productOrderID, err := strconv.Atoi(muxParams["product_order_id"])
 	if err != nil {
 		badRequest(w, err)
 		return
 	}
 
-	if restaurantID <= 0 || productID <= 0 {
+	if restaurantID <= 0 || productOrderID <= 0 {
 		badRequest(w, missingParamsError())
 		return
 	}
 
-	body := schema.Evaluation{ProductID: productID, UserID: uID}
+	body := schema.Evaluation{ProductOrderID: productOrderID, UserID: uID}
 
 	err = json.NewDecoder(r.Body).Decode(&body)
 

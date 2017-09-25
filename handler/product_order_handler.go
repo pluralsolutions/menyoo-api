@@ -74,3 +74,33 @@ func (cmd ProductOrderHandler) UpdateQuantity(w http.ResponseWriter, r *http.Req
 
 	renderSuccess(w, http.StatusOK, result)
 }
+
+func (d ProductOrderHandler) ByUser(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+
+	restaurantID, err := strconv.Atoi(params["restaurant_id"])
+	if err != nil {
+		badRequest(w, err)
+		return
+	}
+
+	if restaurantID <= 0 {
+		badRequest(w, missingParamsError())
+		return
+	}
+
+	uID := r.Header.Get("uid")
+	if uID == "" {
+		UnauthorizedRequest(w)
+		return
+	}
+
+	result, err := d.ProductsByUser(restaurantID, uID)
+
+	if err != nil {
+		badRequest(w, err)
+		return
+	}
+
+	renderSuccess(w, http.StatusOK, result)
+}

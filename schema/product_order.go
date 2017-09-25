@@ -14,6 +14,7 @@ type ProductOrder struct {
 	Quantity        int          `json:"quantity"`
 	TotalPriceCents int          `json:"total_price_cents"`
 	Ingredients     []Ingredient `json:"ingredients" gorm:"many2many:ingredient_product_orders;"`
+	Evaluation      Evaluation   `json:"evaluation"`
 	DeletedAt       *time.Time   `json:"-"`
 	UpdatedAt       *time.Time   `json:"-"`
 }

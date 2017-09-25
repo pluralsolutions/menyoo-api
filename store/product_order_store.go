@@ -58,3 +58,18 @@ func (d *ProductStore) FindProductByUser(
 
 	return productOrder, err
 }
+
+func (d *ProductStore) FindProductOrderWithEvaluations(
+	restaurantID int,
+	userID string,
+) (productOrder []schema.ProductOrder, err error) {
+
+	err = d.
+		Preload("Product").
+		Preload("Evaluation").
+		Joins("JOIN orders ON orders.id = product_orders.order_id").
+		Where("orders.user_id = ? AND orders.restaurant_id = ?", userID, restaurantID).
+		Find(&productOrder).Error
+
+	return productOrder, err
+}
