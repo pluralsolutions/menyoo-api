@@ -49,6 +49,7 @@ func (d *OrderStore) FindFullOrderBy(
 
 	err = d.
 		Preload("Products.Ingredients").
+		Preload("Products.Product").
 		Not(exclude).
 		Find(
 			&order,

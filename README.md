@@ -83,24 +83,67 @@ POST - /orders
 
 ```json
 {
-   "user_id":"123das",
+   "id":3,
+   "user_id":"qualquer user",
    "restaurant_id":1,
+   "status":"requested",
    "products":[
       {
-         "product_id":1,
-         "quantity":2,
-         "ingredients":[
-            {
-               "id":1
-            },
-            {
-               "id":5
-            }
-         ]
+         "id":15,
+         "product":{
+            "id":2,
+            "restaurant_id":1,
+            "title":"Pizza Presunto",
+            "description":"Pizza de preseunto",
+            "image":"http://image.com",
+            "price_cents":3000,
+            "ingredient_groups":null
+         },
+         "product_id":2,
+         "order_id":3,
+         "quantity":46,
+         "total_price_cents":138000,
+         "ingredients":null
       },
       {
-         "product_id":2,
-         "quantity":1
+         "id":14,
+         "product":{
+            "id":1,
+            "restaurant_id":1,
+            "title":"Pizza",
+            "description":"Pizza boa",
+            "image":"http://image.com",
+            "price_cents":2000,
+            "ingredient_groups":null
+         },
+         "product_id":1,
+         "order_id":3,
+         "quantity":32,
+         "total_price_cents":64000,
+         "ingredients":null
+      },
+      {
+         "id":16,
+         "product":{
+            "id":1,
+            "restaurant_id":1,
+            "title":"Pizza",
+            "description":"Pizza boa",
+            "image":"http://image.com",
+            "price_cents":2000,
+            "ingredient_groups":null
+         },
+         "product_id":1,
+         "order_id":3,
+         "quantity":5,
+         "total_price_cents":10140,
+         "ingredients":[
+            {
+               "id":1,
+               "name":"Gorgonzola",
+               "price_cents":140
+            }
+         ]
       }
    ]
 }

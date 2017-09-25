@@ -74,15 +74,16 @@ func (cmd CmdOrder) CreateOrder(order schema.Order) (result schema.Order, err er
 				}
 			}
 		}
-
 		if err := cmd.Store.SaveOrder(&result); err != nil {
 			return result, err
 		}
 	} else {
+
 		if err := cmd.Store.CreateOrder(&result); err != nil {
 			return result, err
 		}
 	}
+	result, err = cmd.Store.FindFullOrderBy(schema.Order{ID: result.ID})
 	return result, err
 }
 
