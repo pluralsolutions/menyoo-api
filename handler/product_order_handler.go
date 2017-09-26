@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/lucasgomide/menyoo-api/schema"
+
 	"github.com/gorilla/mux"
 	"github.com/lucasgomide/menyoo-api/types"
 )
@@ -97,10 +99,16 @@ func (d ProductOrderHandler) ByUser(w http.ResponseWriter, r *http.Request) {
 
 	result, err := d.ProductsByUser(restaurantID, uID)
 
+	type S struct {
+		Products []schema.ProductOrder `json:"products"`
+	}
+
+	serializer := S{Products: result}
+
 	if err != nil {
 		badRequest(w, err)
 		return
 	}
 
-	renderSuccess(w, http.StatusOK, result)
+	renderSuccess(w, http.StatusOK, serializer)
 }
