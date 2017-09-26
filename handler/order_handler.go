@@ -107,3 +107,35 @@ func (cmd OrderHandler) Place(w http.ResponseWriter, r *http.Request) {
 
 	renderSuccess(w, http.StatusOK, order)
 }
+
+func (cmd OrderHandler) CurrentOrder(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+
+	restaurantID, err := strconv.Atoi(params["restaurant_id"])
+	if err != nil {
+		badRequest(w, err)
+		return
+	}
+
+	if restaurantID <= 0 {
+		badRequest(w, missingParamsError())
+		return
+	}
+
+	uID := r.Header.Get("uid")
+	if uID == "" {
+		UnauthorizedRequest(w)
+		return
+	}
+
+	result, err := cmd.OrderCmd.CurrentOrder(
+		schema.Order{RestaurantID: restaurantID, UserID: uID},
+	)
+
+	if err != nil {
+		badRequest(w, err)
+		return
+	}
+
+	renderSuccess(w, http.StatusOK, result)
+}

@@ -412,3 +412,54 @@ uid | {uid from FirebaseAuth}
    ]
 }
 ```
+
+
+## Current Order
+
+GET - /users/me/restaurants/{restaurant_id}/current_order
+
+### Headers
+```
+uid | {uid from FirebaseAuth}
+```
+
+### Response Body
+```json
+{
+   "id":3,
+   "user_id":"IxqhAVmgtkh7COqhfdm2PLPLtxG3",
+   "restaurant_id":1,
+   "status":"requested",
+   "products":[
+      {
+         "id":5,
+         "product":{
+            "id":2,
+            "restaurant_id":1,
+            "title":"Pizza Presunto",
+            "description":"Pizza de preseunto",
+            "image":"http://image.com",
+            "price_cents":3000,
+            "ingredient_groups":null
+         },
+         "product_id":2,
+         "order_id":3,
+         "quantity":1,
+         "total_price_cents":3500,
+         "ingredients":[
+            {
+               "id":3,
+               "name":"Ingrediente adicional",
+               "price_cents":500
+            }
+         ],
+         "evaluation":{
+            "id":0,
+            "user_id":"",
+            "product_order_id":0,
+            "score":0
+         }
+      }
+   ]
+}
+```

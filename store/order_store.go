@@ -66,3 +66,17 @@ func (d *OrderStore) CreateOrder(order *schema.Order) error {
 func (d *OrderStore) SaveOrder(order *schema.Order) error {
 	return d.Save(order).Error
 }
+
+func (d *OrderStore) CurrentOrder(
+	filter schema.Order,
+) (order schema.Order, err error) {
+
+	err = d.
+		Not(schema.Order{Status: "paid"}).
+		Preload("Products").
+		Preload("Products.Ingredients").
+		Preload("Products.Product").
+		Find(&order, &filter).Error
+
+	return order, err
+}

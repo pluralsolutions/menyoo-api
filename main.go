@@ -69,6 +69,13 @@ func main() {
 		).ByUser,
 	).Methods("GET")
 
+	router.HandleFunc(
+		"/users/me/restaurants/{restaurant_id}/current_order",
+		handler.NewOrdersHandler(
+			cmd.NewCmdOrder(store),
+		).CurrentOrder,
+	).Methods("GET")
+
 	log.Println("Starting server at port " + port)
 
 	c := cors.New(cors.Options{

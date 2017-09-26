@@ -104,6 +104,16 @@ func (cmd CmdOrder) PlaceOrder(order schema.Order) (rOrder schema.Order, err err
 	return rOrder, err
 }
 
+func (cmd CmdOrder) CurrentOrder(
+	order schema.Order,
+) (
+	o schema.Order,
+	err error,
+) {
+
+	return cmd.Store.CurrentOrder(order)
+}
+
 func validateSelectedIngredients(p schema.Product, selectedIngredients []schema.Ingredient) (ingredients []schema.Ingredient) {
 	for _, ig := range p.IngredientGroups {
 		for _, i := range ig.Ingredients {
