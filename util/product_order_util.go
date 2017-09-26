@@ -9,7 +9,7 @@ func CalculatesProductOrderPrice(pd schema.ProductOrder) int {
 	for _, ingredient := range pd.Ingredients {
 		additionalPrice += ingredient.PriceCents
 	}
-	return (pd.Quantity * pd.Product.PriceCents) + additionalPrice
+	return pd.Quantity * (pd.Product.PriceCents + additionalPrice)
 }
 
 func IsSameProductOrder(po1 schema.ProductOrder, po2 schema.ProductOrder) bool {
