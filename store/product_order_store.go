@@ -53,7 +53,7 @@ func (d *ProductStore) FindProductByUser(
 
 	err = d.
 		Joins("JOIN orders ON orders.id = product_orders.order_id").
-		Where("product_orders.product_id = ? AND orders.user_id = ?", productID, userID).
+		Where("product_orders.id = ? AND orders.user_id = ?", productID, userID).
 		Find(&productOrder).Error
 
 	return productOrder, err
