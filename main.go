@@ -58,7 +58,7 @@ func main() {
 
 	// replace restaurant_id -> order_id
 	router.HandleFunc(
-		"/users/me/restaurants/{restaurant_id}/products/{product_id}/evaluations",
+		"/users/me/restaurants/{restaurant_id}/products/{product_order_id}/evaluations",
 		handler.NewEvaluationsHandler(cmd.NewCmdEvaluation(store)).Create,
 	).Methods("OPTIONS", "POST")
 
