@@ -71,12 +71,19 @@ func (d *OrderStore) CurrentOrder(
 	filter schema.Order,
 ) (order schema.Order, err error) {
 
-	err = d.
+	result := d.
 		Not(schema.Order{Status: "paid"}).
 		Preload("Products").
 		Preload("Products.Ingredients").
 		Preload("Products.Product").
-		Find(&order, &filter).Error
+		Find(&order, &filter)
 
-	return order, err
+	if result.RecordNotFound() {
+		return order, nil
+	} else if err = result.Error; err != nil {
+		return order, err
+	} else {
+		return order, nil
+	}
+
 }
