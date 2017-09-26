@@ -13,7 +13,7 @@ type CmdProductOrder struct {
 func (cmd CmdProductOrder) UpdateProductOrderQuantity(
 	params interface{},
 ) (
-	po schema.ProductOrder,
+	order schema.Order,
 	err error,
 ) {
 
@@ -35,7 +35,7 @@ func (cmd CmdProductOrder) UpdateProductOrderQuantity(
 	)
 
 	if err != nil {
-		return po, err
+		return order, err
 	}
 
 	currentProductOrder, err := cmd.Store.FindFullProductOrderBy(
@@ -43,19 +43,19 @@ func (cmd CmdProductOrder) UpdateProductOrderQuantity(
 	)
 
 	if err != nil {
-		return po, err
+		return order, err
 	}
 
 	if currentProductOrder.Quantity == vStruct.Quantity {
-		return currentProductOrder, err
+		return cmd.Store.FindFullOrderBy(schema.Order{ID: currentProductOrder.OrderID})
 	}
 
 	if vStruct.Quantity <= 0 {
 		err = cmd.Store.DeleteProductOrder(&currentProductOrder)
 		if err != nil {
-			return po, err
+			return order, err
 		}
-		return po, err
+		return cmd.Store.FindFullOrderBy(schema.Order{ID: currentProductOrder.OrderID})
 	}
 
 	currentProductOrder.Quantity = vStruct.Quantity
@@ -68,10 +68,10 @@ func (cmd CmdProductOrder) UpdateProductOrderQuantity(
 	err = cmd.Store.UpdateProductOrder(&currentProductOrder, attributesUpdates)
 
 	if err != nil {
-		return po, err
+		return order, err
 	}
 
-	return currentProductOrder, err
+	return cmd.Store.FindFullOrderBy(schema.Order{ID: currentProductOrder.OrderID})
 }
 
 func (cmd CmdProductOrder) ProductsByUser(

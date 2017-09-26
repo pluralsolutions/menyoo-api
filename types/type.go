@@ -48,7 +48,7 @@ type OrderCmd interface {
 }
 
 type ProductOrderCmd interface {
-	UpdateProductOrderQuantity(params interface{}) (schema.ProductOrder, error)
+	UpdateProductOrderQuantity(params interface{}) (schema.Order, error)
 	ProductsByUser(restaurantID int, userID string) ([]schema.ProductOrder, error)
 }
 
