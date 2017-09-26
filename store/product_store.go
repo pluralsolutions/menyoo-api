@@ -20,12 +20,17 @@ func (d *ProductStore) FindProductsBy(
 	err error,
 ) {
 
-	err = d.Find(
+	query := d.Find(
 		&products,
 		&filter,
-	).Error
+	)
 
-	return products, err
+	for idx, product := range products {
+		product.CalculateEvaluation(d.DB)
+		products[idx] = product
+	}
+
+	return products, query.Error
 }
 
 func (d *ProductStore) FindFullProductBy(
@@ -34,13 +39,14 @@ func (d *ProductStore) FindFullProductBy(
 	product schema.Product,
 	err error,
 ) {
-
-	err = d.
+	query := d.
 		Preload("IngredientGroups.Ingredients").
 		Find(
 			&product,
 			&filter,
-		).Error
+		)
 
-	return product, err
+	product.CalculateEvaluation(d.DB)
+
+	return product, query.Error
 }
