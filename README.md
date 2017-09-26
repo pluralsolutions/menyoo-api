@@ -207,21 +207,67 @@ uid | {uid from FirebaseAuth}
 
 ```json
 {
-   "id":7,
-   "product_id":1,
-   "order_id":4,
-   "quantity":1,
-   "total_price_cents":2190,
-   "ingredients":[
+   "id":2,
+   "user_id":"0piEoeeFuhOJgcdXIWR5xTCAkux2",
+   "restaurant_id":1,
+   "status":"requested",
+   "products":[
       {
-         "id":2,
-         "name":"Muçarela",
-         "price_cents":50
+         "id":3,
+         "product":{
+            "id":2,
+            "restaurant_id":1,
+            "title":"Pizza Presunto",
+            "description":"Pizza de preseunto",
+            "image":"http://image.com",
+            "price_cents":3000,
+            "ingredient_groups":null
+         },
+         "product_id":2,
+         "order_id":2,
+         "quantity":4,
+         "total_price_cents":12000,
+         "ingredients":null,
+         "evaluation":{
+            "id":0,
+            "user_id":"",
+            "product_order_id":0,
+            "score":0
+         }
       },
       {
-         "id":1,
-         "name":"Gorgonzola",
-         "price_cents":140
+         "id":4,
+         "product":{
+            "id":1,
+            "restaurant_id":1,
+            "title":"Pizza",
+            "description":"Pizza boa",
+            "image":"http://image.com",
+            "price_cents":2000,
+            "ingredient_groups":null
+         },
+         "product_id":1,
+         "order_id":2,
+         "quantity":3,
+         "total_price_cents":6190,
+         "ingredients":[
+            {
+               "id":2,
+               "name":"Muçarela",
+               "price_cents":50
+            },
+            {
+               "id":1,
+               "name":"Gorgonzola",
+               "price_cents":140
+            }
+         ],
+         "evaluation":{
+            "id":0,
+            "user_id":"",
+            "product_order_id":0,
+            "score":0
+         }
       }
    ]
 }
@@ -338,52 +384,31 @@ uid | {uid from FirebaseAuth}
 
 ### Response Body
 ```json
-[
-   {
-      "id":1,
-      "product":{
-         "id":1,
-         "restaurant_id":1,
-         "title":"Pizza",
-         "description":"Pizza boa",
-         "image":"http://image.com",
-         "price_cents":2000,
-         "ingredient_groups":null
-      },
-      "product_id":1,
-      "order_id":1,
-      "quantity":3,
-      "total_price_cents":15000,
-      "ingredients":null,
-      "evaluation":{
-         "id":2,
-         "user_id":"abc123",
-         "product_order_id":1,
-         "score":20
+{
+   "products":[
+      {
+         "id":12,
+         "product":{
+            "id":1,
+            "restaurant_id":1,
+            "title":"Pizza",
+            "description":"Pizza boa",
+            "image":"http://image.com",
+            "price_cents":2000,
+            "ingredient_groups":null
+         },
+         "product_id":1,
+         "order_id":2,
+         "quantity":61,
+         "total_price_cents":122000,
+         "ingredients":null,
+         "evaluation":{
+            "id":0,
+            "user_id":"",
+            "product_order_id":0,
+            "score":0
+         }
       }
-   },
-   {
-      "id":2,
-      "product":{
-         "id":1,
-         "restaurant_id":1,
-         "title":"Pizza",
-         "description":"Pizza boa",
-         "image":"http://image.com",
-         "price_cents":2000,
-         "ingredient_groups":null
-      },
-      "product_id":1,
-      "order_id":1,
-      "quantity":1,
-      "total_price_cents":10000,
-      "ingredients":null,
-      "evaluation":{
-         "id":0,
-         "user_id":"",
-         "product_order_id":0,
-         "score":0
-      }
-   }
-]
+   ]
+}
 ```
