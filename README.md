@@ -354,7 +354,7 @@ uid | {uid from FirebaseAuth}
 
 ## Evaluations
 
-POST - users/me/restaurants/1/products/3/evaluations
+POST - users/me/restaurants/1/products/{product_order_id}/evaluations
 
 ### Headers
 
