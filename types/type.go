@@ -1,7 +1,7 @@
 package types
 
 import (
-	"../schema"
+	"github.com/plural-solutions/menyoo-api/schema"
 )
 
 type Store interface {

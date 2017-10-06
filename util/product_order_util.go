@@ -1,7 +1,7 @@
 package util
 
 import (
-	"../schema"
+	"github.com/plural-solutions/menyoo-api/schema"
 )
 
 func CalculatesProductOrderPrice(pd schema.ProductOrder) int {

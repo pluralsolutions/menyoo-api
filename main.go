@@ -7,9 +7,9 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/lucasgomide/menyoo-api/cmd"
-	"github.com/lucasgomide/menyoo-api/database"
-	"github.com/lucasgomide/menyoo-api/handler"
+	"github.com/plural-solutions/menyoo-api/cmd"
+	"github.com/plural-solutions/menyoo-api/database"
+	"github.com/plural-solutions/menyoo-api/handler"
 	"github.com/rs/cors"
 )
 
@@ -49,6 +49,11 @@ func main() {
 	router.HandleFunc(
 		"/users/me/restaurants/{restaurant_id}/orders/{order_id}",
 		handler.NewOrdersHandler(cmd.NewCmdOrder(store)).Show,
+	).Methods("GET")
+
+	router.HandleFunc(
+		"/users/me/restaurants/{restaurant_id}/allorders",
+		handler.NewOrdersHandler(cmd.NewCmdOrder(store)).AllOrders,
 	).Methods("GET")
 
 	router.HandleFunc(

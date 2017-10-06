@@ -2,7 +2,7 @@ package store
 
 import (
 	"github.com/jinzhu/gorm"
-	"../schema"
+	"github.com/plural-solutions/menyoo-api/schema"
 )
 
 type EvaluationStore struct {

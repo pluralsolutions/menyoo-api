@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
-	"github.com/lucasgomide/menyoo-api/schema"
+	"github.com/plural-solutions/menyoo-api/schema"
 )
 
 type OrderStore struct {
@@ -76,6 +76,24 @@ func (d *OrderStore) CurrentOrder(
 		Preload("Products").
 		Preload("Products.Ingredients").
 		Preload("Products.Product").
+		Find(&order, &filter)
+
+	if result.RecordNotFound() {
+		return order, nil
+	} else if err = result.Error; err != nil {
+		return order, err
+	} else {
+		return order, nil
+	}
+
+}
+
+func (d *OrderStore) AllOrders(
+	filter schema.Order,
+) (order schema.Order, err error) {
+
+	result := d.
+		Not(schema.Order{Status: "paid"}).
 		Find(&order, &filter)
 
 	if result.RecordNotFound() {

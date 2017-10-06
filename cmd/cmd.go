@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"../types"
+	"github.com/plural-solutions/menyoo-api/types"
 )
 
 func NewCmdProduct(store types.Store) *CmdProduct {

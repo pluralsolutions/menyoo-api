@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"../schema"
-	"../types"
+	"github.com/plural-solutions/menyoo-api/schema"
+	"github.com/plural-solutions/menyoo-api/types"
 )
 
 type CmdEvaluation struct {

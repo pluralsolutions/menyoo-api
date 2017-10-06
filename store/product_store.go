@@ -2,7 +2,7 @@ package store
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/lucasgomide/menyoo-api/schema"
+	"github.com/plural-solutions/menyoo-api/schema"
 )
 
 type ProductStore struct {

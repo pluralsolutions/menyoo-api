@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"strconv"
 
-	"../schema"
+	"github.com/plural-solutions/menyoo-api/schema"
 
 	"github.com/gorilla/mux"
-	"../types"
+	"github.com/plural-solutions/menyoo-api/types"
 )
 
 type ProductOrderHandler struct {

@@ -3,9 +3,9 @@ package cmd
 import (
 	"errors"
 
-	"../schema"
-	"../types"
-	"../util"
+	"github.com/plural-solutions/menyoo-api/schema"
+	"github.com/plural-solutions/menyoo-api/types"
+	"github.com/plural-solutions/menyoo-api/util"
 )
 
 type CmdOrder struct {

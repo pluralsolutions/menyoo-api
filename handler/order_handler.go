@@ -8,8 +8,8 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/lucasgomide/menyoo-api/schema"
-	"github.com/lucasgomide/menyoo-api/types"
+	"github.com/plural-solutions/menyoo-api/schema"
+	"github.com/plural-solutions/menyoo-api/types"
 )
 
 type OrderHandler struct {
@@ -129,6 +129,38 @@ func (cmd OrderHandler) CurrentOrder(w http.ResponseWriter, r *http.Request) {
 	}
 
 	result, err := cmd.OrderCmd.CurrentOrder(
+		schema.Order{RestaurantID: restaurantID, UserID: uID},
+	)
+
+	if err != nil {
+		badRequest(w, err)
+		return
+	}
+
+	renderSuccess(w, http.StatusOK, result)
+}
+
+func (cmd OrderHandler) AllOrders(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+
+	restaurantID, err := strconv.Atoi(params["restaurant_id"])
+	if err != nil {
+		badRequest(w, err)
+		return
+	}
+
+	if restaurantID <= 0 {
+		badRequest(w, missingParamsError())
+		return
+	}
+
+	uID := r.Header.Get("uid")
+	if uID == "" {
+		UnauthorizedRequest(w)
+		return
+	}
+
+	result, err := cmd.OrderCmd.AllOrders(
 		schema.Order{RestaurantID: restaurantID, UserID: uID},
 	)
 
