@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/lucasgomide/menyoo-api/schema"
-	"github.com/lucasgomide/menyoo-api/types"
+	"../schema"
+	"../types"
 )
 
 type EvaluationHandler struct {

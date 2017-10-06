@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/lucasgomide/menyoo-api/schema"
-	"github.com/lucasgomide/menyoo-api/types"
-	"github.com/lucasgomide/menyoo-api/util"
+	"../schema"
+	"../types"
+	"../util"
 )
 
 type CmdProductOrder struct {

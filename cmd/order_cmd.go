@@ -3,9 +3,9 @@ package cmd
 import (
 	"errors"
 
-	"github.com/lucasgomide/menyoo-api/schema"
-	"github.com/lucasgomide/menyoo-api/types"
-	"github.com/lucasgomide/menyoo-api/util"
+	"../schema"
+	"../types"
+	"../util"
 )
 
 type CmdOrder struct {
@@ -112,6 +112,15 @@ func (cmd CmdOrder) CurrentOrder(
 ) {
 
 	return cmd.Store.CurrentOrder(order)
+}
+
+func (cmd CmdOrder) AllOrders(
+	order schema.Order,
+) (
+	o schema.Order,
+	err error,
+) {
+	return cmd.Store.AllOrders(order)
 }
 
 func validateSelectedIngredients(p schema.Product, selectedIngredients []schema.Ingredient) (ingredients []schema.Ingredient) {

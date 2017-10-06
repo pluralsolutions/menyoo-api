@@ -3,8 +3,8 @@ package database
 import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
-	"github.com/lucasgomide/menyoo-api/store"
-	"github.com/lucasgomide/menyoo-api/types"
+	"../store"
+	"../types"
 )
 
 func Connect(url string) *gorm.DB {

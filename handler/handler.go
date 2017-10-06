@@ -5,7 +5,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/lucasgomide/menyoo-api/types"
+	"../types"
 )
 
 type errorBadRequest struct {

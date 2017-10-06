@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/lucasgomide/menyoo-api/types"
+	"../types"
 )
 
 type ProductHandler struct {
