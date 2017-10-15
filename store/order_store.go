@@ -85,16 +85,17 @@ func (d *OrderStore) CurrentOrder(
 	} else {
 		return order, nil
 	}
-
 }
 
+// AllOrders show all orders, without any details of products
 func (d *OrderStore) AllOrders(
 	filter schema.Order,
 ) (order schema.Order, err error) {
 
 	result := d.
-		Not(schema.Order{Status: "paid"}).
-		Find(&order, &filter)
+		Find(&order, &filter).
+		Omit("Products").
+		Order("InsertedAt DESC")
 
 	if result.RecordNotFound() {
 		return order, nil
@@ -103,5 +104,4 @@ func (d *OrderStore) AllOrders(
 	} else {
 		return order, nil
 	}
-
 }
