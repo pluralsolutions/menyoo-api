@@ -104,22 +104,11 @@ func (cmd CmdOrder) PlaceOrder(order schema.Order) (rOrder schema.Order, err err
 	return rOrder, err
 }
 
-func (cmd CmdOrder) CurrentOrder(
-	order schema.Order,
-) (
-	o schema.Order,
-	err error,
-) {
-
+func (cmd CmdOrder) CurrentOrder(order schema.Order) (o schema.Order, err error) {
 	return cmd.Store.CurrentOrder(order)
 }
 
-func (cmd CmdOrder) AllOrders(
-	order schema.Order,
-) (
-	o schema.Order,
-	err error,
-) {
+func (cmd CmdOrder) AllOrders(order schema.Order) (o []schema.Order, err error) {
 	return cmd.Store.AllOrders(order)
 }
 

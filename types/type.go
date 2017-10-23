@@ -23,7 +23,7 @@ type OrderStore interface {
 	FindFullOrderBy(filter schema.Order, exclude ...schema.Order) (schema.Order, error)
 	CountOrdersBy(filter schema.Order) (schema.Order, int, error)
 	CurrentOrder(filter schema.Order) (schema.Order, error)
-	AllOrders(filter schema.Order) (schema.Order, error)
+	AllOrders(filter schema.Order) ([]schema.Order, error)
 }
 
 type ProductOrderStore interface {
@@ -48,7 +48,7 @@ type OrderCmd interface {
 	ShowOrder(order schema.Order) (schema.Order, error)
 	PlaceOrder(order schema.Order) (schema.Order, error)
 	CurrentOrder(order schema.Order) (schema.Order, error)
-	AllOrders(order schema.Order) (schema.Order, error)
+	AllOrders(order schema.Order) ([]schema.Order, error)
 }
 
 type ProductOrderCmd interface {

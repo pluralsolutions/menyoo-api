@@ -90,18 +90,20 @@ func (d *OrderStore) CurrentOrder(
 // AllOrders show all orders, without any details of products
 func (d *OrderStore) AllOrders(
 	filter schema.Order,
-) (order schema.Order, err error) {
+) (orders []schema.Order, err error) {
 
 	result := d.
-		Find(&order, &filter).
-		Omit("Products").
-		Order("InsertedAt DESC")
+		Find(&orders, &filter).
+		Order("InsertedAt desc").
+		Limit(30)
+
+	// fmt.Printf("%T", orders)
 
 	if result.RecordNotFound() {
-		return order, nil
+		return orders, nil
 	} else if err = result.Error; err != nil {
-		return order, err
+		return orders, err
 	} else {
-		return order, nil
+		return orders, nil
 	}
 }
